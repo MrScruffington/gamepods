@@ -8,12 +8,16 @@ LABEL maintainer="Scruffington"
 RUN dnf update -y
 
 ##- Install dependencies
-RUN dnf install -y glibc.i686 libstdc++.i686
+RUN dnf install -y glibc.i686 libstdc++.i686 ncurses-libs.i686 ncurses-compat-libs.i686 libcurl.i686
+
+##- Create user
+RUN useradd -m tf2
 
 ##- Download steamcmd
 RUN mkdir /srv/steamcmd
 RUN curl -o /srv/steamcmd_linux.tar.gz https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 RUN tar -xzvf /srv/steamcmd_linux.tar.gz -C /srv/steamcmd
+RUN rm -f /srv/steamcmd_linux.tar.gz
 
 ##- Update steamcmd
 RUN bash /srv/steamcmd/steamcmd.sh +quit
@@ -22,8 +26,9 @@ RUN bash /srv/steamcmd/steamcmd.sh +quit
 RUN mkdir /srv/tf2
 RUN bash /srv/steamcmd/steamcmd.sh +force_install_dir /srv/tf2 +login anonymous +app_update 232250 +quit
 
-##- Create server config file
-RUN touch /srv/tf2/tf/cfg/server.cfg
-RUN echo 'hostname "test"' >> /srv/tf2/tf/cfg/server.cfg
-RUN echo 'rcon_password "test"' >> /srv/tf2/tf/cfg/server.cfg
-RUN echo 'mp_timelimit "30"' >> /srv/tf2/tf/cfg/server.cfg
+##- Change ownership of the tf2 and steamcmd files
+RUN chown -R tf2:tf2 /srv/*
+
+##- Fix weird bug with steamcmd
+RUN mkdir -p /home/tf2/.steam/sdk32
+RUN ln -s /srv/steamcmd/linux32/steamclient.so /home/tf2/.steam/sdk32
