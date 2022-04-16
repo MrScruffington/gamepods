@@ -33,9 +33,10 @@ RUN bash /srv/steamcmd/steamcmd.sh +force_install_dir /srv/tf2 +login anonymous 
 RUN chown -R tf2:tf2 /srv/*
 
 ##- Copy config files
-COPY config/mapcycle.txt /srv/tf2/tf/cfg
-COPY config/motd.txt /srv/tf2/tf/cfg
-COPY config/server.cfg /srv/tf2/tf/cfg
+COPY config/mapcycle.txt /srv/tf2/tf/cfg/
+COPY config/motd.txt /srv/tf2/tf/cfg/
+COPY config/server.cfg /srv/tf2/tf/cfg/
+COPY config/tf2_server.sh /srv/
 
 ##- Fix weird bug(?) with steamcmd
 USER tf2
