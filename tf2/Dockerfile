@@ -42,3 +42,6 @@ COPY config/tf2_server.sh /srv/
 USER tf2
 RUN mkdir -p /home/tf2/.steam/sdk32
 RUN ln -s /srv/steamcmd/linux32/steamclient.so /home/tf2/.steam/sdk32
+
+##- Start server
+CMD ["/bin/bash","/srv/tf2_server.sh"]
