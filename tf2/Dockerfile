@@ -13,6 +13,9 @@ RUN dnf install -y glibc.i686 libstdc++.i686 ncurses-libs.i686 ncurses-compat-li
 ##- Create user
 RUN useradd -m tf2
 
+##-Mount Point
+VOLUME "/srv"
+
 ##- Download steamcmd
 RUN mkdir /srv/steamcmd
 RUN curl -o /srv/steamcmd_linux.tar.gz https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
