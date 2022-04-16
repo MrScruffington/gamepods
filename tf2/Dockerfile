@@ -14,7 +14,7 @@ RUN ln -s /usr/lib/libcurl.so.4 /usr/lib/libcurl-gnutls.so.4
 RUN useradd -m tf2
 
 ##-Mount Point
-VOLUME "/srv"
+## VOLUME "/srv"
 
 ##- Download steamcmd
 RUN mkdir -p /srv/steamcmd
