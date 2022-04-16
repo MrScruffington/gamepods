@@ -22,5 +22,8 @@ RUN bash /srv/steamcmd/steamcmd.sh +quit
 RUN mkdir /srv/tf2
 RUN bash /srv/steamcmd/steamcmd.sh +force_install_dir /srv/tf2 +login anonymous +app_update 232250 +quit
 
-##- Create config
+##- Create server config file
 RUN touch /srv/tf2/tf/cfg/server.cfg
+RUN echo 'hostname "test"' >> /srv/tf2/tf/cfg/server.cfg
+RUN echo 'rcon_password "test"' >> /srv/tf2/tf/cfg/server.cfg
+RUN echo 'mp_timelimit "30"' >> /srv/tf2/tf/cfg/server.cfg
